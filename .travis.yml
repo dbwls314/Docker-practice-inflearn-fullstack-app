@@ -1,6 +1,6 @@
 language: generic
 
-sudo: requried
+sudo: required
 
 services:
   - docker
@@ -9,8 +9,8 @@ services:
 before_install:
   - docker build -t dldbwls492/react-test-app -f ./frontend/Dockerfile.dev ./frontend
 
-scipt:
-  - docker run -e CI=true dldbwls492/react-test-app npm run test
+script:
+  - docker run -e CI=true dldbwls492/react-test-app npm test
 
 after_succes:
   - docker build -t dldbwls492/docker-frontend ./frontend
