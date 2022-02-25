@@ -1,0 +1,13 @@
+# 개발환경을 위한 도커파이 작성
+
+FROM node
+
+WORKDIR /app
+
+COPY ./package.json ./
+
+RUN npm install
+
+COPY ./ ./
+
+CMD ["npm", "run", "start"]
