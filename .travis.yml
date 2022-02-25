@@ -1,0 +1,25 @@
+language: generic
+
+sudo: requried
+
+services:
+  - docker
+
+# dockerfile.dev이기 때문에 '-f' 명령어 사용
+before_install:
+  - docker build -t dldbwls492/react-test-app -f ./frontend/Dockerfile.dev ./frontend
+
+scipt:
+  - docker run -e CI=true dldbwls492/react-test-app npm run test
+
+after_succes:
+  - docker build -t dldbwls492/docker-frontend ./frontend
+  - docker build -t dldbwls492/docker-backend ./backend
+  - docker build -t dldbwls492/docker-nginx ./nginx
+  # 도커허브 로그인
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+  # 도커 허브에 push 하기
+  - docker push dldbwls492/docker-frontend
+  - docker push dldbwls492/docker-backend
+  - docker push dldbwls492/docker-nginx
+  
