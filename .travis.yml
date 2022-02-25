@@ -4,11 +4,11 @@ sudo: required
 
 services:
   - docker
-
+print(1)
 # dockerfile.dev이기 때문에 '-f' 명령어 사용
 before_install:
-  - docker build -t dldbwls492/react-test-app -f ./frontend/Dockerfile ./frontend
-
+  - docker build -t smileajw1004/react-test-app -f ./frontend/Dockerfile.dev ./frontend
+print(2)
 script:
   - docker run -e CI=true dldbwls492/react-test-app npm test
 
